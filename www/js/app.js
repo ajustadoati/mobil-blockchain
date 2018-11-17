@@ -5,9 +5,11 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'ionic-multiselect', 'pascalprecht.translate', 'ngSanitize', 'ngCordova', 'ionic-modal-select'])
+var app=angular.module('app', ['ionic', 'ion-floating-menu', 'LocalStorageModule', 'WalletService', 'monospaced.qrcode', 'ngclipboard', 'chart.js', 'pascalprecht.translate', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'ionic-multiselect', 'pascalprecht.translate', 'ngSanitize', 'ngCordova', 'ionic-modal-select'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $rootScope, SettingsService, $translate) {
+  $rootScope.settings = angular.copy(SettingsService.getSettings());
+  $translate.use($rootScope.settings.language.id);
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)

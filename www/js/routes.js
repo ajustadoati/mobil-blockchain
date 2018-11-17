@@ -1,11 +1,14 @@
 angular.module('app.routes', [])
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, localStorageServiceProvider, $translateProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
+  localStorageServiceProvider
+      .setPrefix('Ajustadoati')
+      .setStorageType('localStorage');
   $stateProvider
     
       
@@ -254,12 +257,89 @@ angular.module('app.routes', [])
       templateUrl: 'templates/detalleResultado.html',
       controller: 'detalleResultadoCtrl'
     })
+
+    .state('tab', {
+        url: '/tab',
+        abstract: true,
+        templateUrl: 'templates/tabs.html'
+      })
+      .state('tab.wallets', {
+        url: '/wallets',
+        views: {
+          'tab-wallets': {
+            templateUrl: 'templates/tab-wallets.html',
+            controller: 'WalletsController'
+          }
+        }
+      }).state('tab.wallet-detail', {
+        url: '/wallets/:address',
+        views: {
+          'tab-wallets': {
+            templateUrl: 'templates/wallet-detail.html',
+            controller: 'WalletDetailController'
+          }
+        }
+      }).state('tab.transactions-history', {
+        url: '/transactions/:address',
+        views: {
+          'tab-wallets': {
+            templateUrl: 'templates/transactions-history.html',
+            controller: 'TransactionsHistoryController'
+          }
+        }
+      }).state('tab.transaction-view', {
+        url: '/transaction/:transactionId',
+        views: {
+          'tab-wallets': {
+            templateUrl: 'templates/transaction-view.html',
+            controller: 'TransactionViewController'
+          }
+        }
+      }).state('tab.new-wallet', {
+        url: '/newWallet',
+        views: {
+          'tab-wallets': {
+            templateUrl: 'templates/new-wallet.html',
+            controller: 'NewWalletController'
+          }
+        }
+      }).state('tab.price-history', {
+        url: '/priceHistory',
+        views: {
+          'tab-price-history': {
+            templateUrl: 'templates/tab-price-history.html',
+            controller: 'PriceHistoryController'
+          }
+        }
+      }).state('tab.tools', {
+        url: '/tools',
+        views: {
+          'tab-tools': {
+            templateUrl: 'templates/tab-tools.html',
+            controller: 'ToolsController'
+          }
+        }
+      }).state('tab.settings', {
+        url: '/settings',
+        views: {
+          'tab-settings': {
+            templateUrl: 'templates/tab-settings.html',
+            controller: 'SettingsController'
+          }
+        }
+      });
     
         
       
     
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/login');
+  //$urlRouterProvider.otherwise('/login');
+  $urlRouterProvider.otherwise('/tab/wallets');
+  $translateProvider.useStaticFilesLoader({
+      prefix: 'traslations/',
+      suffix: '.json'
+    });
+    $translateProvider.preferredLanguage('en');
 
 });
