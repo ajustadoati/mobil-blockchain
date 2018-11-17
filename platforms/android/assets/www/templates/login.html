@@ -1,0 +1,29 @@
+<ion-view title="Login">
+    <ion-content overflow-scroll="true" padding="true" class="has-header login-conten">
+        <form class="list" name="loginForm">
+            <div style="line-height: 180px; border: 0px solid rgb(238, 238, 238); border-radius: 3px; text-align: center; width: 100%; height: auto; background-color: rgb(255, 255, 255);">
+                 <div class="spacer" style="height: 40px;"></div>
+                <img src="img/logo_ajustado.png" width="330" height="70"></img>
+                
+            </div>
+            <ion-list>
+                <label class="item item-input">
+                    
+                    <input type="text" size="50" ng-model="usuarioLogin.user"  placeholder="Usuario">
+                </label>
+                <label class="item item-input">
+                    
+                    <input  type="password" ng-model="usuarioLogin.password" placeholder="Clave">
+                </label>
+            </ion-list>
+            <div class="spacer" style="height: 20px;"></div>
+            <input type="submit"
+                       class="button button-stable button-block "
+                       ng-click="loginUsuario(loginForm);" 
+                       value='Entrar'/>
+            <a href="#/userRegister" class="button button-positive button-clear button-block">Crear Cuenta</a>
+            <a href="#/searchItem" class="button button-positive button-clear button-block  icon-left ">Usar Sin Registrar</a>
+            
+        </form>
+    </ion-content>
+</ion-view>
